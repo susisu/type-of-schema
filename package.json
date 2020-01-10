@@ -2,10 +2,13 @@
   "name": "@susisu/type-of-schema",
   "version": "0.0.0",
   "description": "Derives TypeScript type from JSON Schema",
-  "main": "lib/index.js",
   "repository": "https://github.com/susisu/type-of-schema.git",
   "author": "Susisu <susisu2413@yahoo.co.jp>",
   "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "lint": "eslint --ext .js,.ts '*.js' src",
     "lint-fix": "eslint --fix --ext .js,.ts '*.js' src",

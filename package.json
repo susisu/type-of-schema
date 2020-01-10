@@ -1,0 +1,23 @@
+{
+  "name": "@susisu/type-of-schema",
+  "version": "0.0.0",
+  "description": "Derives TypeScript type from JSON Schema",
+  "main": "lib/index.js",
+  "repository": "https://github.com/susisu/type-of-schema.git",
+  "author": "Susisu <susisu2413@yahoo.co.jp>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts '*.js' src",
+    "lint-fix": "eslint --fix --ext .js,.ts '*.js' src",
+    "test": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "tsc --build tsconfig.build.json --clean",
+    "prepublishOnly": "run-s clean lint test build"
+  },
+  "devDependencies": {
+    "@susisu/eslint-config": "^0.0.14",
+    "eslint": "^6.8.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.7.4"
+  }
+}

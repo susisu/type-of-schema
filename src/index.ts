@@ -1,6 +1,6 @@
 type Schema = {};
 
-type Type = null | number | string | boolean | readonly Type[] | { [K in string]?: Type };
+type Type = null | number | string | boolean | readonly Type[] | {};
 
 
 type SConst<T extends Type> = Readonly<{
@@ -85,6 +85,5 @@ type TypeOfSArray<I extends Schema> = Array<TypeOfSchema<I>>;
 type TypeOfSObject<P extends Readonly<{ [K in string]: Schema }>, R extends string> =
   & { [K in ElimString<R>]: TypeOfSchema<P[K]> }
   & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchema<P[K]> };
-  // & { [K in string]?: Type };
 
 type ElimString<T> = string extends T ? never : T;

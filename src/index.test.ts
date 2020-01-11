@@ -2,7 +2,7 @@ import { TypeOfSchema } from ".";
 
 type Equal<T, U> = [T] extends [U] ? ([U] extends [T] ? true : false) : false;
 type Assert<T extends true> = T;
-type Type = null | number | string | boolean | readonly Type[] | { [K in string]?: Type };
+type Type = null | number | string | boolean | readonly Type[] | {};
 
 
 const emptySchema = {} as const;

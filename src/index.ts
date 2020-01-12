@@ -38,7 +38,7 @@ type SArray<I extends Schema> = Readonly<{
   items?: I | readonly I[],
 }>;
 
-type SObject<P extends Readonly<{ [K in string]: Schema }>, R extends string> = Readonly<{
+type SObject<P extends Readonly<{ [K in string]?: Schema }>, R extends string> = Readonly<{
   type: "object",
   properties?: P,
   required?: readonly R[],
@@ -56,19 +56,21 @@ type SAllOf<S extends Schema> = Readonly<{
 /**
  * Derives the type of data that the given JSON schema describes.
  */
-export type TypeOfSchema<S extends Schema> =
+export type TypeOfSchema<S extends Schema> = TypeOfSchemaInternal<S>;
+
+type TypeOfSchemaInternal<S extends Schema | undefined> =
     S extends SOneOf<infer S> ? TypeOfSOneOf<S>
   : S extends SAllOf<infer S> ? TypeOfSAllOf<S>
-  : TypeOfSchemaSub<S>;
+  : TypeOfSchemaInternalSub<S>;
 
-type TypeOfSOneOf<S extends Schema> = TypeOfSchemaSub<S>;
+type TypeOfSOneOf<S extends Schema> = TypeOfSchemaInternalSub<S>;
 
-type TypeOfSAllOf<S extends Schema> = UnionToIntersection<TypeOfSchemaSub<S>>;
+type TypeOfSAllOf<S extends Schema> = UnionToIntersection<TypeOfSchemaInternalSub<S>>;
 
 type UnionToIntersection<U> =
   (U extends unknown ? (x: U) => never : never) extends (x: infer I) => never ? I : never;
 
-type TypeOfSchemaSub<S extends Schema> =
+type TypeOfSchemaInternalSub<S extends Schema | undefined> =
     S extends SConst<infer T> ? T
   : S extends SEnum<infer T> ? T
   : S extends SNull ? null
@@ -80,10 +82,10 @@ type TypeOfSchemaSub<S extends Schema> =
   : S extends SObject<infer P, infer R> ? TypeOfSObject<P, R>
   : Type;
 
-type TypeOfSArray<I extends Schema> = Array<TypeOfSchema<I>>;
+type TypeOfSArray<I extends Schema> = Array<TypeOfSchemaInternal<I>>;
 
-type TypeOfSObject<P extends Readonly<{ [K in string]: Schema }>, R extends string> =
-  & { [K in ElimString<R>]: TypeOfSchema<P[K]> }
-  & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchema<P[K]> };
+type TypeOfSObject<P extends Readonly<{ [K in string]?: Schema }>, R extends string> =
+  & { [K in ElimString<R>]: TypeOfSchemaInternal<P[K]> }
+  & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchemaInternal<P[K]> };
 
 type ElimString<T> = string extends T ? never : T;

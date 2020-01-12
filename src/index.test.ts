@@ -97,9 +97,11 @@ const objectSchema2 = {
   required: ["a"],
 } as const;
 
-export type AssertObject2 = Assert<Equal<TypeOfSchema<typeof objectSchema2>, {
+type Object2 = TypeOfSchema<typeof objectSchema2>;
+export type AssertObject2 = Assert<Equal<Object2, {
   a: Type,
 }>>;
+export type AssertObject2Prop = Assert<Equal<Object2["a"], Type>>;
 
 const objectSchema3 = {
   type      : "object",
@@ -109,10 +111,13 @@ const objectSchema3 = {
   },
 } as const;
 
-export type AssertObject3 = Assert<Equal<TypeOfSchema<typeof objectSchema3>, {
+type Object3 = TypeOfSchema<typeof objectSchema3>;
+export type AssertObject3 = Assert<Equal<Object3, {
   a?: number,
   b?: string,
 }>>;
+export type AssertObject3Prop1 = Assert<Equal<Object3["a"], number | undefined>>;
+export type AssertObject3Prop2 = Assert<Equal<Object3["b"], string | undefined>>;
 
 const objectSchema4 = {
   type      : "object",
@@ -123,10 +128,13 @@ const objectSchema4 = {
   required: ["b"],
 } as const;
 
-export type AssertObject4 = Assert<Equal<TypeOfSchema<typeof objectSchema4>, {
+type Object4 = TypeOfSchema<typeof objectSchema4>;
+export type AssertObject4 = Assert<Equal<Object4, {
   a?: number,
   b: string,
 }>>;
+export type AssertObject4Prop1 = Assert<Equal<Object4["a"], number | undefined>>;
+export type AssertObject4Prop2 = Assert<Equal<Object4["b"], string>>;
 
 
 const oneOfSchema = {

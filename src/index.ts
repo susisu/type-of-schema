@@ -1,13 +1,13 @@
 type Schema = {};
 
-type Type = null | number | string | boolean | readonly Type[] | {};
+type Value = null | number | string | boolean | readonly Value[] | {};
 
 
-type SConst<T extends Type> = Readonly<{
+type SConst<T extends Value> = Readonly<{
   const: T,
 }>;
 
-type SEnum<T extends Type> = Readonly<{
+type SEnum<T extends Value> = Readonly<{
   enum: readonly T[],
 }>;
 
@@ -80,7 +80,7 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : S extends SBoolean ? boolean
   : S extends SArray<infer I> ? TypeOfSArray<I>
   : S extends SObject<infer P, infer R> ? TypeOfSObject<P, R>
-  : Type;
+  : Value;
 
 type TypeOfSArray<I extends Schema> = Array<TypeOfSchemaInternal<I>>;
 

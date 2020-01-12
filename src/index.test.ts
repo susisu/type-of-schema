@@ -2,12 +2,12 @@ import { TypeOfSchema } from ".";
 
 type Equal<T, U> = [T] extends [U] ? ([U] extends [T] ? true : false) : false;
 type Assert<T extends true> = T;
-type Type = null | number | string | boolean | readonly Type[] | {};
+type Value = null | number | string | boolean | readonly Value[] | {};
 
 
 const emptySchema = {} as const;
 
-export type AssertEmpty = Assert<Equal<TypeOfSchema<typeof emptySchema>, Type>>;
+export type AssertEmpty = Assert<Equal<TypeOfSchema<typeof emptySchema>, Value>>;
 
 
 const constSchema = {
@@ -67,7 +67,7 @@ const arraySchema1 = {
   type: "array",
 } as const;
 
-export type AssertArray1 = Assert<Equal<TypeOfSchema<typeof arraySchema1>, Type[]>>;
+export type AssertArray1 = Assert<Equal<TypeOfSchema<typeof arraySchema1>, Value[]>>;
 
 const arraySchema2 = {
   type : "array",
@@ -99,9 +99,9 @@ const objectSchema2 = {
 
 type Object2 = TypeOfSchema<typeof objectSchema2>;
 export type AssertObject2 = Assert<Equal<Object2, {
-  a: Type,
+  a: Value,
 }>>;
-export type AssertObject2Prop = Assert<Equal<Object2["a"], Type>>;
+export type AssertObject2Prop = Assert<Equal<Object2["a"], Value>>;
 
 const objectSchema3 = {
   type      : "object",

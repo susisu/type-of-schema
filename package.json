@@ -1,6 +1,6 @@
 {
   "name": "@susisu/type-of-schema",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Derives TypeScript type from JSON Schema",
   "repository": "https://github.com/susisu/type-of-schema.git",
   "author": "Susisu <susisu2413@yahoo.co.jp>",

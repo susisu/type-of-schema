@@ -33,9 +33,10 @@ type SBoolean = Readonly<{
 }>;
 
 
-type SArray<I extends Schema> = Readonly<{
+type SArray<I extends Schema, A extends Schema | boolean | undefined> = Readonly<{
   type: "array",
   items?: I | readonly I[],
+  additionalItems?: A,
 }>;
 
 type SObject<
@@ -83,11 +84,16 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : S extends SInteger ? number
   : S extends SString ? string
   : S extends SBoolean ? boolean
-  : S extends SArray<infer I> ? TypeOfSArray<I>
+  : S extends SArray<infer I, infer A> ? TypeOfSArray<I, A>
   : S extends SObject<infer P, infer R, infer A> ? TypeOfSObject<P, R, A>
   : Value;
 
-type TypeOfSArray<I extends Schema> = Array<TypeOfSchemaInternal<I>>;
+type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> =
+  Array<TypeOfSchemaInternal<I> | (
+      [A] extends [Schema] ? TypeOfSchemaInternal<A>
+    : [A] extends [true] ? Value
+    : never
+  )>;
 
 type TypeOfSObject<
   P extends Readonly<{ [K in string]?: Schema }>,

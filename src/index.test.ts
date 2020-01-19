@@ -86,6 +86,30 @@ const arraySchema3 = {
 
 export type AssertArray3 = Assert<Equal<TypeOfSchema<typeof arraySchema3>, Array<number | string>>>;
 
+const arraySchema4 = {
+  type           : "array",
+  items          : { type: "number" },
+  additionalItems: true,
+} as const;
+
+export type AssertArray4 = Assert<Equal<TypeOfSchema<typeof arraySchema4>, Array<number | Value>>>;
+
+const arraySchema5 = {
+  type           : "array",
+  items          : { type: "number" },
+  additionalItems: false,
+} as const;
+
+export type AssertArray5 = Assert<Equal<TypeOfSchema<typeof arraySchema5>, number[]>>;
+
+const arraySchema6 = {
+  type           : "array",
+  items          : { type: "number" },
+  additionalItems: { type: "string" },
+} as const;
+
+export type AssertArray6 = Assert<Equal<TypeOfSchema<typeof arraySchema6>, Array<number | string>>>;
+
 const objectSchema1 = {
   type: "object",
 } as const;

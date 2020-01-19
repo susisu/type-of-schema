@@ -1,6 +1,6 @@
-type Schema = {};
+type Schema = object;
 
-type Value = null | number | string | boolean | readonly Value[] | {};
+type Value = null | number | string | boolean | readonly Value[] | object;
 
 
 type SConst<T extends Value> = Readonly<{
@@ -38,10 +38,15 @@ type SArray<I extends Schema> = Readonly<{
   items?: I | readonly I[],
 }>;
 
-type SObject<P extends Readonly<{ [K in string]?: Schema }>, R extends string> = Readonly<{
+type SObject<
+  P extends Readonly<{ [K in string]?: Schema }>,
+  R extends string,
+  A extends Schema | boolean | undefined
+> = Readonly<{
   type: "object",
   properties?: P,
   required?: readonly R[],
+  additionalProperties?: A,
 }>;
 
 
@@ -79,13 +84,22 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : S extends SString ? string
   : S extends SBoolean ? boolean
   : S extends SArray<infer I> ? TypeOfSArray<I>
-  : S extends SObject<infer P, infer R> ? TypeOfSObject<P, R>
+  : S extends SObject<infer P, infer R, infer A> ? TypeOfSObject<P, R, A>
   : Value;
 
 type TypeOfSArray<I extends Schema> = Array<TypeOfSchemaInternal<I>>;
 
-type TypeOfSObject<P extends Readonly<{ [K in string]?: Schema }>, R extends string> =
+type TypeOfSObject<
+  P extends Readonly<{ [K in string]?: Schema }>,
+  R extends string,
+  A extends Schema | boolean | undefined
+> =
   & { [K in ElimString<R>]: TypeOfSchemaInternal<P[K]> }
-  & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchemaInternal<P[K]> };
+  & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchemaInternal<P[K]> }
+  & (
+      A extends Schema ? { [K in string]?: TypeOfSchemaInternal<A> }
+    : A extends true ? { [K in string]?: Value }
+    : {}
+  );
 
 type ElimString<T> = string extends T ? never : T;

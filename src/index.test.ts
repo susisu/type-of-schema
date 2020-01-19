@@ -90,7 +90,9 @@ const objectSchema1 = {
   type: "object",
 } as const;
 
-export type AssertObject1 = Assert<Equal<TypeOfSchema<typeof objectSchema1>, {}>>;
+type Object1 = TypeOfSchema<typeof objectSchema1>;
+export type AssertObject1 = Assert<Equal<Object1, {}>>;
+export type AssertObject1Prop = Assert<Equal<keyof Object1, never>>;
 
 const objectSchema2 = {
   type    : "object",
@@ -135,6 +137,58 @@ export type AssertObject4 = Assert<Equal<Object4, {
 }>>;
 export type AssertObject4Prop1 = Assert<Equal<Object4["a"], number | undefined>>;
 export type AssertObject4Prop2 = Assert<Equal<Object4["b"], string>>;
+
+const objectSchema5 = {
+  type                : "object",
+  additionalProperties: true,
+} as const;
+
+type Object5 = TypeOfSchema<typeof objectSchema5>;
+export type AssertObject5 = Assert<Equal<Object5, {
+  [K in string]?: Value
+}>>;
+export type AssertObject5Prop = Assert<Equal<Object5["a"], Value | undefined>>;
+
+const objectSchema6 = {
+  type                : "object",
+  additionalProperties: false,
+} as const;
+
+type Object6 = TypeOfSchema<typeof objectSchema6>;
+export type AssertObject6 = Assert<Equal<Object6, {}>>;
+export type AssertObject6Prop = Assert<Equal<keyof Object6, never>>;
+
+const objectSchema7 = {
+  type                : "object",
+  additionalProperties: { type: "string" },
+} as const;
+
+type Object7 = TypeOfSchema<typeof objectSchema7>;
+export type AssertObject7 = Assert<Equal<Object7, {
+  [K in string]?: string
+}>>;
+export type AssertObject7Prop = Assert<Equal<Object7["a"], string | undefined>>;
+
+const objectSchema8 = {
+  type      : "object",
+  properties: {
+    "a": { type: "number" },
+    "b": { type: "string" },
+  },
+  required            : ["b"],
+  additionalProperties: { type: "string" },
+} as const;
+
+type Object8 = TypeOfSchema<typeof objectSchema8>;
+export type AssertObject8 = Assert<Equal<Object8, {
+  a?: number,
+  b: string,
+} & {
+  [K in string]?: string
+}>>;
+export type AssertObject8Prop1 = Assert<Equal<Object8["a"], number | undefined>>;
+export type AssertObject8Prop2 = Assert<Equal<Object8["b"], string>>;
+export type AssertObject8Prop3 = Assert<Equal<Object8["c"], string | undefined>>;
 
 
 const oneOfSchema = {

@@ -97,9 +97,9 @@ type TypeOfSObject<
   & { [K in ElimString<R>]: TypeOfSchemaInternal<P[K]> }
   & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchemaInternal<P[K]> }
   & (
-      A extends Schema ? { [K in string]?: TypeOfSchemaInternal<A> }
-    : A extends true ? { [K in string]?: Value }
-    : {}
+      [A] extends [Schema] ? { [K in string]?: TypeOfSchemaInternal<A> }
+    : [A] extends [true] ? { [K in string]?: Value }
+    : unknown
   );
 
 type ElimString<T> = string extends T ? never : T;

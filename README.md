@@ -36,8 +36,8 @@ Do not forget `as const` for the schema declaration so that its type contains fu
 - `number` / `integer`
 - `string`
 - `boolean`
-- `array` (`items`) 
-- `object` (`properties` and `required`)
+- `array` (`items` and `additionalItems`) 
+- `object` (`properties`, `required`, and `additionalProperties`)
 - `oneOf`
 - `allOf`
 

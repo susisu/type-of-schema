@@ -1,5 +1,9 @@
-export type Schema = object;
+/**
+ * Any valid JSON value.
+ */
 export type Value = null | number | string | boolean | readonly Value[] | object;
+
+type Schema = object;
 
 type SConst<T extends Value> = Readonly<{ const: T }>;
 type SEnum<T extends Value> = Readonly<{ enum: readonly T[] }>;

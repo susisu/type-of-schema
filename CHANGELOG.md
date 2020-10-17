@@ -1,5 +1,8 @@
+## 0.2.1 (2020-10-17)
+- Export `Value` types
+
 ## 0.2.0 (2020-01-20)
-- Add supports for `additionalItems` and `additionalProperties`
+- Add support for `additionalItems` and `additionalProperties`
 
 ## 0.1.1 (2020-01-13)
 - Refactor internals

@@ -1,5 +1,5 @@
-type Schema = object;
-type Value = null | number | string | boolean | readonly Value[] | object;
+export type Schema = object;
+export type Value = null | number | string | boolean | readonly Value[] | object;
 
 type SConst<T extends Value> = Readonly<{ const: T }>;
 type SEnum<T extends Value> = Readonly<{ enum: readonly T[] }>;

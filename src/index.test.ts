@@ -1,8 +1,7 @@
-import { TypeOfSchema } from ".";
+import { TypeOfSchema, Value } from ".";
 
 type Equal<T, U> = [T] extends [U] ? ([U] extends [T] ? true : false) : false;
 type Assert<T extends true> = T;
-type Value = null | number | string | boolean | readonly Value[] | {};
 
 const emptySchema = {} as const;
 export type AssertEmpty = Assert<Equal<TypeOfSchema<typeof emptySchema>, Value>>;

@@ -1,42 +1,19 @@
 type Schema = object;
-
 type Value = null | number | string | boolean | readonly Value[] | object;
 
+type SConst<T extends Value> = Readonly<{ const: T }>;
+type SEnum<T extends Value> = Readonly<{ enum: readonly T[] }>;
 
-type SConst<T extends Value> = Readonly<{
-  const: T,
-}>;
-
-type SEnum<T extends Value> = Readonly<{
-  enum: readonly T[],
-}>;
-
-
-type SNull = Readonly<{
-  type: "null",
-}>;
-
-type SNumber = Readonly<{
-  type: "number",
-}>;
-
-type SInteger = Readonly<{
-  type: "integer",
-}>;
-
-type SString = Readonly<{
-  type: "string",
-}>;
-
-type SBoolean = Readonly<{
-  type: "boolean",
-}>;
-
+type SNull = Readonly<{ type: "null" }>;
+type SNumber = Readonly<{ type: "number" }>;
+type SInteger = Readonly<{ type: "integer" }>;
+type SString = Readonly<{ type: "string" }>;
+type SBoolean = Readonly<{ type: "boolean" }>;
 
 type SArray<I extends Schema, A extends Schema | boolean | undefined> = Readonly<{
-  type: "array",
-  items?: I | readonly I[],
-  additionalItems?: A,
+  type: "array";
+  items?: I | readonly I[];
+  additionalItems?: A;
 }>;
 
 type SObject<
@@ -44,25 +21,21 @@ type SObject<
   R extends string,
   A extends Schema | boolean | undefined
 > = Readonly<{
-  type: "object",
-  properties?: P,
-  required?: readonly R[],
-  additionalProperties?: A,
+  type: "object";
+  properties?: P;
+  required?: readonly R[];
+  additionalProperties?: A;
 }>;
 
-
-type SOneOf<S extends Schema> = Readonly<{
-  oneOf: readonly S[],
-}>;
-
-type SAllOf<S extends Schema> = Readonly<{
-  allOf: readonly S[],
-}>;
+type SOneOf<S extends Schema> = Readonly<{ oneOf: readonly S[] }>;
+type SAllOf<S extends Schema> = Readonly<{ allOf: readonly S[] }>;
 
 /**
  * Derives the type of data that the given JSON schema describes.
  */
 export type TypeOfSchema<S extends Schema> = TypeOfSchemaInternal<S>;
+
+/* eslint-disable prettier/prettier */
 
 type TypeOfSchemaInternal<S extends Schema | undefined> =
     S extends SOneOf<infer S> ? TypeOfSOneOf<S>
@@ -72,9 +45,6 @@ type TypeOfSchemaInternal<S extends Schema | undefined> =
 type TypeOfSOneOf<S extends Schema> = TypeOfSchemaInternalSub<S>;
 
 type TypeOfSAllOf<S extends Schema> = UnionToIntersection<TypeOfSchemaInternalSub<S>>;
-
-type UnionToIntersection<U> =
-  (U extends unknown ? (x: U) => never : never) extends (x: infer I) => never ? I : never;
 
 type TypeOfSchemaInternalSub<S extends Schema | undefined> =
     S extends SConst<infer T> ? T
@@ -89,11 +59,14 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : Value;
 
 type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> =
-  Array<TypeOfSchemaInternal<I> | (
-      [A] extends [Schema] ? TypeOfSchemaInternal<A>
-    : [A] extends [true] ? Value
-    : never
-  )>;
+  Array<
+    | TypeOfSchemaInternal<I>
+    | (
+        [A] extends [Schema] ? TypeOfSchemaInternal<A>
+      : [A] extends [true] ? Value
+      : never
+    )
+  >;
 
 type TypeOfSObject<
   P extends Readonly<{ [K in string]?: Schema }>,
@@ -108,4 +81,9 @@ type TypeOfSObject<
     : unknown
   );
 
+type UnionToIntersection<U> =
+  (U extends unknown ? (x: U) => never : never) extends (x: infer I) => never ? I : never;
+
 type ElimString<T> = string extends T ? never : T;
+
+/* eslint-enable prettier/prettier */

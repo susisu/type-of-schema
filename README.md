@@ -1,4 +1,6 @@
 # @susisu/type-of-schema
+[![CI](https://github.com/susisu/type-of-schema/workflows/CI/badge.svg)](https://github.com/susisu/type-of-schema/actions?query=workflow%3ACI)
+
 **Experimental!**
 
 Derives TypeScript type from [JSON Schema](https://json-schema.org/)

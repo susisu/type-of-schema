@@ -10,8 +10,12 @@
     "lib"
   ],
   "scripts": {
-    "lint": "eslint '*.js' src",
-    "lint-fix": "eslint --fix '*.js' src",
+    "lint": "run-s lint:eslint lint:prettier",
+    "lint-fix": "run-s lint-fix:eslint lint-fix:prettier",
+    "lint:eslint": "eslint src '*.js'",
+    "lint-fix:eslint": "eslint --fix src '*.js'",
+    "lint:prettier": "prettier --check src '*.js'",
+    "lint-fix:prettier": "prettier --write src '*.js'",
     "test": "tsc -p tsconfig.json --noEmit",
     "build": "tsc --build tsconfig.build.json",
     "clean": "tsc --build tsconfig.build.json --clean",
@@ -22,7 +26,6 @@
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.0",
     "typescript": "^4.5.2"

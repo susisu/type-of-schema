@@ -39,8 +39,7 @@ type SAllOf<S extends Schema> = Readonly<{ allOf: readonly S[] }>;
  */
 export type TypeOfSchema<S extends Schema> = TypeOfSchemaInternal<S>;
 
-/* eslint-disable prettier/prettier */
-
+// prettier-ignore
 type TypeOfSchemaInternal<S extends Schema | undefined> =
     S extends SOneOf<infer S> ? TypeOfSOneOf<S>
   : S extends SAllOf<infer S> ? TypeOfSAllOf<S>
@@ -50,6 +49,7 @@ type TypeOfSOneOf<S extends Schema> = TypeOfSchemaInternalSub<S>;
 
 type TypeOfSAllOf<S extends Schema> = UnionToIntersection<TypeOfSchemaInternalSub<S>>;
 
+// prettier-ignore
 type TypeOfSchemaInternalSub<S extends Schema | undefined> =
     S extends SConst<infer T> ? T
   : S extends SEnum<infer T> ? T
@@ -62,6 +62,7 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : S extends SObject<infer P, infer R, infer A> ? TypeOfSObject<P, R, A>
   : Value;
 
+// prettier-ignore
 type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> =
   Array<
     | TypeOfSchemaInternal<I>
@@ -72,6 +73,7 @@ type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> =
     )
   >;
 
+// prettier-ignore
 type TypeOfSObject<
   P extends Readonly<{ [K in string]?: Schema }>,
   R extends string,
@@ -85,9 +87,8 @@ type TypeOfSObject<
     : unknown
   );
 
+// prettier-ignore
 type UnionToIntersection<U> =
   (U extends unknown ? (x: U) => never : never) extends (x: infer I) => never ? I : never;
 
 type ElimString<T> = string extends T ? never : T;
-
-/* eslint-enable prettier/prettier */

@@ -1,4 +1,4 @@
-import { TypeOfSchema, Value } from ".";
+import type { TypeOfSchema, Value } from ".";
 
 declare function assert<T extends true>(): T;
 

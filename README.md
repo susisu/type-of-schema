@@ -1,8 +1,6 @@
 # @susisu/type-of-schema
 [![CI](https://github.com/susisu/type-of-schema/workflows/CI/badge.svg)](https://github.com/susisu/type-of-schema/actions?query=workflow%3ACI)
 
-**Experimental!**
-
 Derives TypeScript type from [JSON Schema](https://json-schema.org/)
 
 ## Installation
@@ -14,7 +12,7 @@ yarn add @susisu/type-of-schema
 
 ## Usage
 ``` typescript
-import { TypeOfSchema } from "@susisu/type-of-schema";
+import type { TypeOfSchema } from "@susisu/type-of-schema";
 
 const schema = {
   type: "object",

@@ -23,7 +23,7 @@ type SArray<I extends Schema, A extends Schema | boolean | undefined> = Readonly
 type SObject<
   P extends Readonly<{ [K in string]?: Schema }>,
   R extends string,
-  A extends Schema | boolean | undefined
+  A extends Schema | boolean | undefined,
 > = Readonly<{
   type: "object";
   properties?: P;
@@ -63,21 +63,20 @@ type TypeOfSchemaInternalSub<S extends Schema | undefined> =
   : Value;
 
 // prettier-ignore
-type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> =
-  Array<
-    | TypeOfSchemaInternal<I>
-    | (
-        [A] extends [Schema] ? TypeOfSchemaInternal<A>
-      : [A] extends [true] ? Value
-      : never
-    )
-  >;
+type TypeOfSArray<I extends Schema, A extends Schema | boolean | undefined> = Array<
+  | TypeOfSchemaInternal<I>
+  | (
+      [A] extends [Schema] ? TypeOfSchemaInternal<A>
+    : [A] extends [true] ? Value
+    : never
+  )
+>;
 
 // prettier-ignore
 type TypeOfSObject<
   P extends Readonly<{ [K in string]?: Schema }>,
   R extends string,
-  A extends Schema | boolean | undefined
+  A extends Schema | boolean | undefined,
 > =
   & { [K in ElimString<R>]: TypeOfSchemaInternal<P[K]> }
   & { [K in Exclude<ElimString<keyof P>, ElimString<R>>]?: TypeOfSchemaInternal<P[K]> }

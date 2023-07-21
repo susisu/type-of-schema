@@ -6,6 +6,7 @@
   "author": "Susisu <susisu2413@yahoo.co.jp>",
   "license": "MIT",
   "main": "lib/index.js",
+  "sideEffects": false,
   "files": [
     "lib",
     "src",

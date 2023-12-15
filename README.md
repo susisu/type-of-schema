@@ -62,8 +62,8 @@ const schema1 = {
 type T1 = TypeOfSchema<typeof schema1>;
 
 const schema2: {
-  type: "object",
-  required: ("a" | "b")[],
+  type: "object";
+  required: ("a" | "b")[];
 } = schema1;
 
 // T2 = { a: Value, b: Value }

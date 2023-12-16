@@ -3,15 +3,15 @@
     "rootDir": "src",
     "outDir": "lib",
     "incremental": true,
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "lib": ["es2018"],
+    "lib": ["esnext"],
     "strict": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": false
   },
   "include": [
     "src/**/*"

@@ -1,10 +1,8 @@
-"use strict";
+import globals from "globals";
+import { config, map } from "@susisu/eslint-config";
+import prettierConfig from "eslint-config-prettier";
 
-const globals = require("globals");
-const { config, map } = require("@susisu/eslint-config");
-const prettierConfig = require("eslint-config-prettier");
-
-module.exports = [
+export default [
   ...map({ files: ["src/**/*.ts"] }, [
     config.tsTypeChecked(),
     {
@@ -23,7 +21,7 @@ module.exports = [
     config.js(),
     {
       languageOptions: {
-        sourceType: "commonjs",
+        sourceType: "module",
         globals: {
           ...globals.es2021,
           ...globals.node,

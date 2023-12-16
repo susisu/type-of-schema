@@ -1,3 +1,7 @@
+## 0.3.0 (2023-12-16)
+
+- The package is now ESM/CJS dual (it's type only, though)
+
 ## 0.2.2 (2023-07-21)
 
 - Include source files in the distribution

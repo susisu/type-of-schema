@@ -9,6 +9,18 @@
   "sideEffects": false,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./lib/index.js",
+        "types": "./lib/index.d.ts"
+      },
+      "require": {
+        "default": "./lib/index.cjs",
+        "types": "./lib/index.d.cts"
+      }
+    }
+  },
   "files": [
     "lib",
     "src",
@@ -21,9 +33,8 @@
     "lint": "eslint --fix '*.js' src",
     "lint:check": "eslint '*.js' src",
     "test": "tsc -p tsconfig.json --noEmit",
-    "build": "tsc --build tsconfig.build.json",
-    "clean": "tsc --build tsconfig.build.json --clean",
-    "prepublishOnly": "run-s clean format:check lint:check test build"
+    "build": "tsup",
+    "prepublishOnly": "run-s format:check lint:check test build"
   },
   "devDependencies": {
     "@susisu/eslint-config": "^0.0.72",
@@ -32,6 +43,7 @@
     "globals": "^13.24.0",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.1.1",
+    "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }
 }

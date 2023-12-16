@@ -29,7 +29,7 @@ const schema = {
   required: ["b"],
 } as const;
 
-// T = { a?: number, b: string }
+// T = { a?: number; b: string }
 type T = TypeOfSchema<typeof schema>;
 ```
 
@@ -66,7 +66,7 @@ const schema2: {
   required: ("a" | "b")[];
 } = schema1;
 
-// T2 = { a: Value, b: Value }
+// T2 = { a: Value; b: Value }
 // but b is actually not required
 type T2 = TypeOfSchema<typeof schema2>;
 ```

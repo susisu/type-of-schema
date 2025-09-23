@@ -37,13 +37,13 @@
     "prepublishOnly": "run-s format:check lint:check test build"
   },
   "devDependencies": {
-    "@susisu/eslint-config": "^0.0.90",
-    "eslint": "^9.11.0",
-    "eslint-config-prettier": "^9.1.0",
-    "globals": "^15.9.0",
-    "npm-run-all2": "^6.2.3",
-    "prettier": "^3.3.3",
-    "tsup": "^8.3.0",
-    "typescript": "^5.6.2"
+    "@susisu/eslint-config": "^0.0.100",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.4.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.6.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
   }
 }

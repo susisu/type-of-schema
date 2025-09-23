@@ -14,9 +14,6 @@ importers:
       eslint:
         specifier: ^9.36.0
         version: 9.36.0
-      eslint-config-prettier:
-        specifier: ^10.1.8
-        version: 10.1.8(eslint@9.36.0)
       globals:
         specifier: ^16.4.0
         version: 16.4.0

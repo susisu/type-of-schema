@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-unused-vars: ["error", { "varsIgnorePattern": "^schema$" }] */
 
-import type { TypeOfSchema, Value } from ".";
+import type { TypeOfSchema, Value } from "./index.js";
 
 declare function describe(name: string, body: () => void): void;
 declare function it(name: string, body: () => void): void;

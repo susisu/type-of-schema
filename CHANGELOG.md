@@ -1,3 +1,7 @@
+## 0.4.0 (2025-09-23)
+
+- Remove CJS builds
+
 ## 0.3.0 (2023-12-16)
 
 - The package is now ESM/CJS dual (it's type only, though)

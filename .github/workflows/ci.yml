@@ -8,12 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - '18'
-          - '20'
-          - '22'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -21,7 +15,7 @@ jobs:
           version: '10'
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '24'
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm format:check
